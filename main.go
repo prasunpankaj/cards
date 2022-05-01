@@ -4,8 +4,13 @@ import "fmt"
 
 func main() {
 	cards := newDeck()
-	hand, remainingCard := deal(cards, 5) 
-	hand.print()
-	remainingCard.print()
-	fmt.Println("*****")
+	// hand, remainingCard := deal(cards, 5) 
+	// hand.print()
+	// remainingCard.print()
+	// fmt.Println("*****")
+	// greeting := "Hi There!"
+	// fmt.Println([]byte(greeting))
+
+	fmt.Println(cards.toString())
+	cards.saveToFile("my_cards.txts")
 }
