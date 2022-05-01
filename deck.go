@@ -5,6 +5,8 @@ import (
 	"strings"
 	"io/ioutil"
 	"os"
+	"math/rand"
+	"time"
 )
 
 type deck []string
@@ -43,6 +45,7 @@ func (d deck) saveToFile(filename string) error{
 }
 
 func newDeckFromFile(filename string) deck {
+	fmt.Println("Reading from the Files")
 	bs, err := ioutil.ReadFile(filename)
 	if err != nil{
 		// Option #1 - Log the error and return a call to newDeck()
@@ -51,8 +54,17 @@ func newDeckFromFile(filename string) deck {
 		fmt.Println("Error:", err)
 		os.Exit(1)
 	}
-
 	s := strings.Split(string(bs), ",")// Ace of Spades, Two of Spades, Three of Spades,
-
 	return deck(s)
+}
+
+func (d deck) shuffle(){
+
+	source := rand.NewSource(time.Now().UnixNano())
+	r := rand.New(source)
+
+	for i := range d {
+		newPosition := r.Intn(len(d) - 1)
+		d[i], d[newPosition] = d[newPosition], d[i]
+	}
 }
